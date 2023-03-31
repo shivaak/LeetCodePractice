@@ -1,17 +1,49 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class LeetCodeGeneral {
 
     public static void main(String[] args) {
         LeetCodeGeneral l = new LeetCodeGeneral();
-        System.out.println(l.findDuplicate(new int[]{1,3,4,2,2}));
+        /*System.out.println(l.findDuplicate(new int[]{1,3,4,2,2}));
         System.out.println(l.minOperations(new int[]{3,1,6,8}, new int[] {1,5}));
         System.out.println(l.minOperations(new int[]{2,9,6,3}, new int[] {5}));
         System.out.println(l.minOperations(new int[]{47,50,97,58,87,72,41,63,41,51,17,21,7,100,69,66,79,92,84,9,57,26,26,28,83,38}, new int[] {3}));
+*/
+        //System.out.println(l.removeDuplicates(new int[]{1,1}));
+        int[][] result = l.outerTrees(new int[][]{{1,1},{2,2},{2,0},{2,4},{3,3},{4,2}});
+        for(int i=0;i<result.length;i++){
+            System.out.println(result[i][0] + "," + result[i][1]);
+        }
+
+    }
+
+    private int removeDuplicates(int[] nums) {
+        if(nums.length<=1) return nums.length;
+
+        for(int i=0;i<nums.length;i++) {
+            int j=i+1;
+
+            while(j<nums.length && nums[j]<=nums[i]){
+                j++;
+            }
+
+            if(j<nums.length){
+                int t=nums[i+1];
+                nums[i+1]=nums[j];
+                nums[j]=t;
+            }
+        }
 
 
+        int c=1;
+        while(c<nums.length){
+            if(nums[c]<=nums[c-1])break;
+            c++;
+        }
+
+        System.out.println(c);
+
+        return c;
     }
 
     public int findDuplicate(int[] nums) {
@@ -71,6 +103,39 @@ public class LeetCodeGeneral {
                 }
             }
             result.add(1L * query * low - prefixSum[low] + prefixSum[n] - prefixSum[low] - 1L * (n - low) * query);
+        }
+
+        return result;
+
+    }
+
+
+    public int[][] outerTrees(int[][] trees) {
+
+        Map<Integer, PriorityQueue<Integer[]>> map = new HashMap<>();
+
+        int n = trees.length;
+
+        for(int i=0;i<n;i++){
+            Integer[] c = Arrays.stream(trees[i]).boxed().toArray(Integer[]::new);
+            map.computeIfAbsent(c[0], k -> new PriorityQueue<>((a,b) -> {
+                return a[1]-b[1];
+            })).add(c);
+        }
+
+        List<Integer[]> list = new ArrayList<>();
+        for(int key : map.keySet()){
+            Integer[][] t = map.get(key).toArray(new Integer[0][]);
+            list.add(t[0]);
+            if(t.length>1) list.add(t[t.length-1]);
+        }
+
+        int[][] result = new int[list.size()][];
+
+        for(int i=0;i<list.size();i++){
+            result[i] = new int[2];
+            result[i][0]=list.get(i)[0];
+            result[i][1]=list.get(i)[1];
         }
 
         return result;

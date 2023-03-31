@@ -20,10 +20,6 @@ abstract class ShapeDecorator implements Shape {
     ShapeDecorator(Shape shape){
         this.shape = shape;
     }
-
-    public void draw(){
-        shape.draw();
-    }
 }
 
 class BorderDecorator extends ShapeDecorator {
