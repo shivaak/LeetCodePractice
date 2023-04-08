@@ -10,11 +10,49 @@ public class LeetCodeGeneral {
         System.out.println(l.minOperations(new int[]{47,50,97,58,87,72,41,63,41,51,17,21,7,100,69,66,79,92,84,9,57,26,26,28,83,38}, new int[] {3}));
 */
         //System.out.println(l.removeDuplicates(new int[]{1,1}));
-        int[][] result = l.outerTrees(new int[][]{{1,1},{2,2},{2,0},{2,4},{3,3},{4,2}});
+      /*  int[][] result = l.outerTrees(new int[][]{{1,1},{2,2},{2,0},{2,4},{3,3},{4,2}});
         for(int i=0;i<result.length;i++){
             System.out.println(result[i][0] + "," + result[i][1]);
-        }
+        }*/
 
+
+        System.out.println(l.characterReplacement("ABBB", 2));
+
+    }
+
+    public int characterReplacement(String s, int k) {
+
+        int n=s.length();
+        char[] arr= s.toCharArray();
+
+
+        int i=0, j=0;
+        int originalK=k;
+        int nextIndex=-1;
+        int maxLength=-1;
+        while(i>=0 && i<n){
+            char current = arr[i];
+            int count=0;
+            while(j<n && (arr[j]==current || k>0)){
+                if(arr[j]!=current){
+                    if(k==originalK)nextIndex=j;
+                    k--;
+                }
+                count++;
+                j++;
+            }
+            count = (count+k) > n ? n : count+k;
+            maxLength = Math.max(maxLength, count);
+            if(nextIndex>0)
+                j=nextIndex;
+            else{
+                j=i+1;
+            }
+            i=j;
+            k=originalK;
+            nextIndex=-1;
+        }
+        return maxLength;
     }
 
     private int removeDuplicates(int[] nums) {
