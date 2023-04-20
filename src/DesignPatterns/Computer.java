@@ -87,7 +87,7 @@ public class Computer {
         }
 
         public static void main(String[] args) {
-                ComputerBuilder builder = new ComputerBuilder(512,16);
+                ComputerBuilder builder = new Computer.ComputerBuilder(512,16);
                 builder.isBluetoothEnabled=true;
                 builder.cpu="Intel";
                 Computer computer = builder.build();

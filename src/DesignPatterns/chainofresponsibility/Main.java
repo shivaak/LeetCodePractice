@@ -69,7 +69,7 @@ public class Main {
 
         handler1.setNextHandler(handler2);
 
-        return handler2;
+        return handler1;
     }
 
     public static void main(String[] args) {

@@ -1,7 +1,5 @@
-package ThreadPool;
+package multithreading.ThreadPool;
 
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class ThreadPool {
