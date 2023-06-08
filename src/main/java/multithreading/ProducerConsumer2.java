@@ -24,7 +24,7 @@ class ProducerConsumer2{
                 box.wait();
             }
 
-            System.out.println("Messsage Consumed " + box.get(0));
+            System.out.println("Message Consumed " + box.get(0));
             box.remove(box.size()-1);
             box.notifyAll();
         }
